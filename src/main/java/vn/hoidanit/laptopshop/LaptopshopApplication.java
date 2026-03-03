@@ -8,12 +8,7 @@ import org.springframework.context.ApplicationContext;
 public class LaptopshopApplication {
 
 	public static void main(String[] args) {
-		// container
 		ApplicationContext hoidanit = SpringApplication.run(LaptopshopApplication.class, args);
-		// lấy bean từ container
-		for (String s : hoidanit.getBeanDefinitionNames()) {
-			System.out.println(s);
-		}
 	}
 
 }
