@@ -121,5 +121,5 @@ src/
 
 ## Tác giả
 
--   **TrầnVăn Hải Lâm**
--   Thời gian thực hiện: 6/2/2025 - 18/4/2025
+-   **Tống Nguyễn Nhật Tiến**
+-   Thời gian thực hiện: 20/2/2026 - ...
