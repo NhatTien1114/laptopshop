@@ -25,7 +25,9 @@
             </h1>
             <h2>${nhattien}</h2>
 
-            <button class="btn btn-warning">Submit</button>
+            <button class="btn btn-warning" onclick="window.location.href='${pageContext.request.contextPath}/admin/user'">
+    Submit
+</button>
         </body>
 
         </html>

@@ -1,5 +1,7 @@
 package vn.hoidanit.laptopshop.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,16 +29,22 @@ public class UserController {
     }
 
     @RequestMapping("/admin/user")
+    public String getTableUserPage(Model model) {
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "admin/user/table";
+    }
+
+    @RequestMapping("/admin/user/create") // không có method => mặc định GET
     public String getInputUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST) // khác nhau method nên có thể trùng URL
     public String createInputUserPage(Model model, @ModelAttribute("newUser") User user) {
-        System.out.println("run here" + user);
         this.userService.handleSaveUser(user);
-        return "helloJSP";
+        return "redirect:/admin/user"; // sau khi tạo xong thì quay về trang table user
     }
 
 }
