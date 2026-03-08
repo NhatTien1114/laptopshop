@@ -24,6 +24,10 @@ public class UserService {
         return this.userRepository.findUserByEmailAndAddress(email, address);
     }
 
+    public User getUserById(long id) {
+        return this.userRepository.findById(id).orElse(null);
+    }
+
     public User handleSaveUser(User user) {
         User bin = this.userRepository.save(user);
         return bin;

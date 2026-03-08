@@ -39,7 +39,7 @@
                                             <th>${user.email}</th>
                                             <th>${user.fullName}</th>
                                             <th>
-                                                <a class="btn btn-success">View</a>
+                                                <a href="/admin/user/${user.id}" class="btn btn-success">View</a>
                                                 <a class="btn btn-warning">Update</a>
                                                 <a class="btn btn-danger">Delete</a>
                                             </th>
