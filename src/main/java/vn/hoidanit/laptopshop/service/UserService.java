@@ -32,4 +32,8 @@ public class UserService {
         User bin = this.userRepository.save(user);
         return bin;
     }
+
+    public void handleDeleteUser(long id) {
+        this.userRepository.deleteById(id);
+    }
 }
