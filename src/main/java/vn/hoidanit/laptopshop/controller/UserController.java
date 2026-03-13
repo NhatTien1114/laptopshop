@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -41,6 +42,27 @@ public class UserController {
         User userDetail = this.userService.getUserById(id);
         model.addAttribute("userDetail", userDetail);
         return "admin/user/show";
+    }
+
+    @RequestMapping("/admin/user/update/{id}")
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        User userUpdate = this.userService.getUserById(id);
+        model.addAttribute("userUpdate", userUpdate);
+        return "admin/user/update";
+    }
+
+    @PostMapping("/admin/user/update")
+    public String updateUser(@ModelAttribute("userUpdate") User user) {
+        User userUpdate = this.userService.getUserById(user.getId());
+        if (userUpdate != null) {
+            System.out.println("hello");
+            // userUpdate.setEmail(user.getEmail());
+            userUpdate.setAddress(user.getAddress());
+            userUpdate.setFullName(user.getFullName());
+            userUpdate.setPhoneNumber(user.getPhoneNumber());
+            this.userService.handleSaveUser(userUpdate); // vì user đã tồn tại nên sẽ update, nếu không có thì sẽ tạo mới
+        }
+        return "redirect:/admin/user";
     }
 
     @RequestMapping("/admin/user/create") // không có method => mặc định GET
