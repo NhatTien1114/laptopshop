@@ -23,39 +23,30 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Update Users</h1>
+                                <h1 class="mt-4">User Detail</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Update Users</li>
+                                    <li class="breadcrumb-item active">User Detail</li>
                                 </ol>
                                 <div class="">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h2>Update a user</h2>
+                                            <div class="d-flex justify-content-between">
+                                                <h2 class="header">User Detail: ${userDetail.id}</h2>
+                                            </div>
                                             <hr>
-                                            <form:form method="post" action="/admin/user/update" modelAttribute="userUpdate">
-                                                <div class="mb-3" style="display: none">
-                                                    <label class="form-label">ID:</label>
-                                                    <form:input type="text" class="form-control" path="id" />
+                                            <div class="card" style="width: 100%;">
+                                                <div class="card-header">
+                                                    User information of ${userDetail.id}
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Email</label>
-                                                    <form:input type="email" class="form-control" path="email" disabled="true" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Phone number:</label>
-                                                    <form:input type="text" class="form-control" path="phoneNumber" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Full Name:</label>
-                                                    <form:input type="text" class="form-control" path="fullName" />
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Address:</label>
-                                                    <form:input type="text" class="form-control" path="address" />
-                                                </div>
-                                                <button type="submit" class="btn btn-warning">Update</button>
-                                            </form:form>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item">ID: ${userDetail.id}</li>
+                                                    <li class="list-group-item">Email: ${userDetail.email}</li>
+                                                    <li class="list-group-item">Full Name: ${userDetail.fullName}</li>
+                                                    <li class="list-group-item">Address: ${userDetail.address}</li>
+                                                </ul>
+                                            </div>
+                                            <a href="/admin/user" class="btn btn-success mt-3">Back</a>
                                         </div>
                                     </div>
                                 </div>
