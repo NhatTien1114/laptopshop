@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,12 @@ public class UserController {
     // DI = Dependency injection
     private final UserService userService;
     private final UpLoadFileService upLoadFileService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, UpLoadFileService upLoadFileService) {
+    public UserController(UserService userService, UpLoadFileService upLoadFileService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.upLoadFileService = upLoadFileService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
@@ -81,7 +84,10 @@ public class UserController {
         @RequestParam("avatarFile") MultipartFile file
     ) {
         String avatar = this.upLoadFileService.handleUpLoadFile(file, "avatar");
-        // this.userService.handleSaveUser(user);
+        user.setAvatar(avatar);
+        user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+        user.setRole(this.userService.getRoleByName(user.getRole().getName()));
+        this.userService.handleSaveUser(user);
         return "redirect:/admin/user"; // sau khi tạo xong thì quay về trang table user
     }
 
