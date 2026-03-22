@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UpLoadFileService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 
@@ -19,20 +21,22 @@ import vn.hoidanit.laptopshop.service.UserService;
 public class UserController {
 
     // DI = Dependency injection
-    private UserService userService;
+    private final UserService userService;
+    private final UpLoadFileService upLoadFileService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UpLoadFileService upLoadFileService) {
         this.userService = userService;
+        this.upLoadFileService = upLoadFileService;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String getUserPage(Model model) {
         model.addAttribute("binbin", "test");
         model.addAttribute("nhattien", "Tôi là Tiến");
         return "helloJSP";
     }
 
-    @RequestMapping("/admin/user")
+    @GetMapping("/admin/user")
     public String getTableUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
@@ -65,15 +69,19 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @RequestMapping("/admin/user/create") // không có method => mặc định GET
+    @GetMapping("/admin/user/create") // không có method => mặc định GET
     public String getInputUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST) // khác nhau method nên có thể trùng URL
-    public String createInputUserPage(Model model, @ModelAttribute("newUser") User user) {
-        this.userService.handleSaveUser(user);
+    @PostMapping("/admin/user/create") 
+    public String createInputUserPage(Model model, 
+        @ModelAttribute("newUser") User user,
+        @RequestParam("avatarFile") MultipartFile file
+    ) {
+        String avatar = this.upLoadFileService.handleUpLoadFile(file, "avatar");
+        // this.userService.handleSaveUser(user);
         return "redirect:/admin/user"; // sau khi tạo xong thì quay về trang table user
     }
 
