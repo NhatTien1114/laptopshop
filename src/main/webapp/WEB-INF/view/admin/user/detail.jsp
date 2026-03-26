@@ -35,6 +35,11 @@
                                                 <h2 class="header">User Detail: ${userDetail.id}</h2>
                                             </div>
                                             <hr>
+                                            <div class="col-12 mb-3">
+                                                <c:if test="${not empty userDetail.avatar}">
+                                                    <img src="/image/avatar/${userDetail.avatar}" alt="avatar" style="max-height: 250px;" id="avatarPreview">
+                                                </c:if>
+                                            </div>
                                             <div class="card" style="width: 100%;">
                                                 <div class="card-header">
                                                     User information of ${userDetail.id}
@@ -43,6 +48,7 @@
                                                     <li class="list-group-item">ID: ${userDetail.id}</li>
                                                     <li class="list-group-item">Email: ${userDetail.email}</li>
                                                     <li class="list-group-item">Full Name: ${userDetail.fullName}</li>
+                                                    <li class="list-group-item">Role: ${userDetail.role.name}</li>
                                                     <li class="list-group-item">Address: ${userDetail.address}</li>
                                                 </ul>
                                             </div>
