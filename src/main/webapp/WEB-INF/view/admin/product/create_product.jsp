@@ -53,26 +53,41 @@
                                             <form:form method="post" modelAttribute="newProduct" action="/admin/product/create" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="mb-3 col-12 col-md-6">
+                                                        <c:set var="errName">
+                                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label for="exampleInputEmail" class="form-label">Name</label>
-                                                        <form:input type="text" class="form-control" aria-describedby="emailHelp" path="name" />
+                                                        <form:input type="text" class="form-control ${not empty errName ? 'is-invalid' : ''}" aria-describedby="emailHelp" path="name" /> ${errName}
                                                     </div>
                                                     <div class="mb-3 col-12 col-md-6">
+                                                        <c:set var="errPrice">
+                                                            <form:errors path="price" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label for="exampleInputPassword" class="form-label">Price</label>
-                                                        <form:input type="number" class="form-control" path="price" />
+                                                        <form:input type="number" class="form-control ${not empty errPrice ? 'is-invalid' : ''}" path="price" /> ${errPrice}
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 col-12">
+                                                    <c:set var="errDetailDesc">
+                                                        <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                                    </c:set>
                                                     <label for="exampleInputAddress" class="form-label">Detail Description</label>
-                                                    <form:input type="text" class="form-control" path="detailDesc" />
+                                                    <form:input type="text" class="form-control ${not empty errDetailDesc ? 'is-invalid' : ''}" path="detailDesc" /> ${errDetailDesc}
                                                 </div>
                                                 <div class="row">
                                                     <div class="mb-3 col-12 col-md-6">
+                                                        <c:set var="errShortDesc">
+                                                            <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label for="exampleInputEmail" class="form-label">Short Description</label>
-                                                        <form:input type="text" class="form-control" aria-describedby="emailHelp" path="shortDesc" />
+                                                        <form:input type="text" class="form-control ${not empty errShortDesc ? 'is-invalid' : ''}" path="shortDesc" /> ${errShortDesc}
                                                     </div>
                                                     <div class="mb-3 col-12 col-md-6">
+                                                        <c:set var="errQuantity">
+                                                            <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label for="exampleInputPassword" class="form-label">Quantity</label>
-                                                        <form:input type="number" class="form-control" path="quantity" />
+                                                        <form:input type="number" class="form-control ${not empty errQuantity ? 'is-invalid' : ''}" path="quantity" /> ${errQuantity}
                                                     </div>
                                                 </div>
                                                 <div class="row">

@@ -10,16 +10,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull
+    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
+
+    @NotNull
+    @Min(value = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     private String password;
     private String phoneNumber;
+
+    @NotNull
+    @Min(value = 2, message = "Họ tên phải có ít nhất 2 ký tự")
     private String fullName;
     private String address;
     private String avatar;
@@ -29,10 +41,11 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
-    public User(long id, String email, String password, String phoneNumber, String fullName, String address, String avatar) {
+    public User(long id, String email, String password, String phoneNumber, String fullName, String address,
+            String avatar) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -45,7 +58,7 @@ public class User {
     public User() {
     }
 
-        public Role getRole() {
+    public Role getRole() {
         return role;
     }
 

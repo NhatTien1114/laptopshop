@@ -45,7 +45,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            <c:forEach var="product" items="${products}">
+                                                <tr>
+                                                    <th>${product.id}</th>
+                                                    <th>${product.name}</th>
+                                                    <th>${product.price}</th>
+                                                    <th>${product.factory}</th>
+                                                    <th>
+                                                        <a href="/admin/product/${product.id}" class="btn btn-success">View</a>
+                                                        <a href="/admin/product/update/${product.id}" class="btn btn-warning">Update</a>
+                                                        <a href="/admin/product/delete/${product.id}" class="btn btn-danger">Delete</a>
+                                                    </th>
+                                                </tr>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
