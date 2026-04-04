@@ -37,6 +37,9 @@
                             <div class="bg-white rounded shadow p-5">
                                 <h3 class="text-center mb-4"><b>Create Account</b></h3>
                                 <form:form method="post" action="/register" modelAttribute="registerDTO">
+                                    <c:set var="errorFirstName">
+                                        <form:errors path="firstName" cssClass="invalid-feedback" />
+                                    </c:set>
                                     <c:set var="errorPassword">
                                         <form:errors path="password" cssClass="invalid-feedback" />
                                     </c:set>
@@ -45,20 +48,19 @@
                                     </c:set>
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <form:input type="text" class="form-control" placeholder="First name" path="firstName" />
+                                            <form:input type="text" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" placeholder="First name" path="firstName" /> ${errorFirstName}
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <form:input type="text" class="form-control" placeholder="Last name" path="lastName" />
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" placeholder="Email address" path="email" />
-                                    </div>${errorEmail}
+                                        <form:input type="email" class="form-control ${not empty errorEmail ? 'is-invalid' : ''}" placeholder="Email address" path="email" /> ${errorEmail}
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <form:input type="password" class="form-control ${not empty errorPassword ? 'is-invalid' : ''}" placeholder="Password" path="password" />
+                                            <form:input type="password" class="form-control ${not empty errorPassword ? 'is-invalid' : ''}" placeholder="Password" path="password" /> ${errorPassword}
                                         </div>
-                                        ${errorPassword}
                                         <div class="col-md-6 mb-3">
                                             <form:input type="password" class="form-control" placeholder="Confirm Password" path="confirmPassword" />
                                         </div>

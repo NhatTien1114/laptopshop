@@ -11,8 +11,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -26,12 +26,12 @@ public class User {
     private String email;
 
     @NotNull
-    @Min(value = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
+    @Size(min = 6, message = "Mật khẩu phải có ít nhất 6 ký tự")
     private String password;
     private String phoneNumber;
 
     @NotNull
-    @Min(value = 2, message = "Họ tên phải có ít nhất 2 ký tự")
+    @Size(min = 2, message = "Họ tên phải có ít nhất 2 ký tự")
     private String fullName;
     private String address;
     private String avatar;
