@@ -23,7 +23,7 @@ public class CustomUserDetailsService
             throw new UsernameNotFoundException("User not found with email: " + username);
         }
         return new User(user.getEmail(), user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getName())));
     }
 
 }
