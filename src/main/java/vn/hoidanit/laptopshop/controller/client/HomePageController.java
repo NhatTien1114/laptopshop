@@ -66,9 +66,9 @@ public class HomePageController {
         return "client/auth/login";
     }
 
-    @PostMapping("/login")
-    public String handleLogin(Model model) {
-        return "client/auth/login";
+    @GetMapping("/deny")
+    public String getDenyPage(Model model) {
+        return "client/auth/deny";
     }
 
 }

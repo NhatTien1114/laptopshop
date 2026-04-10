@@ -23,6 +23,12 @@
                                 </div>
                             </c:if>
 
+                            <c:if test="${param.logout != null}">
+                                <div class="alert alert-success" role="alert">
+                                    Đăng xuất thành công
+                                </div>
+                            </c:if>
+
                             <form method="post" action="/login">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Email</label>
