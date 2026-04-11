@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -44,8 +45,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
     public User(long id, String email, String password, String phoneNumber, String fullName, String address,
-            String avatar) {
+            String avatar, Cart cart) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -53,6 +57,7 @@ public class User {
         this.fullName = fullName;
         this.address = address;
         this.avatar = avatar;
+        this.cart = cart;
     }
 
     public User() {
@@ -134,6 +139,14 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", phoneNumber=" + phoneNumber
                 + ", fullName=" + fullName + ", address=" + address + ", avatar=" + avatar + "]";
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
 }
