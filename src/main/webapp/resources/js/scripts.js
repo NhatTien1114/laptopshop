@@ -32,6 +32,26 @@ function updateCartTotals() {
     if (cartTotal) cartTotal.textContent = formatCurrency(total);
 }
 
+function syncHiddenFormQuantities() {
+    const form = document.getElementById('cart');
+    if (!form) return;
+
+    document.querySelectorAll('input[data-cart-detail-id]').forEach(function(visibleInput) {
+        const cartDetailId = visibleInput.getAttribute('data-cart-detail-id');
+        const qty = visibleInput.value;
+
+        form.querySelectorAll('input').forEach(function(hiddenInput) {
+            if (hiddenInput.name && hiddenInput.name.match(/cartDetails\[\d+\]\.id/) && hiddenInput.value == cartDetailId) {
+                const qtyName = hiddenInput.name.replace('.id', '.quantity');
+                const qtyInput = form.querySelector('input[name="' + qtyName + '"]');
+                if (qtyInput) {
+                    qtyInput.value = qty;
+                }
+            }
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.btn-plus').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -40,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (input) {
                 input.value = parseInt(input.value) + 1;
                 updateCartTotals();
+                syncHiddenFormQuantities();
             }
         });
     });
@@ -53,10 +74,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (currentVal > 1) {
                     input.value = currentVal - 1;
                     updateCartTotals();
+                    syncHiddenFormQuantities();
                 }
             }
         });
     });
+
+    // Handle checkout link - submit form with updated quantities instead of direct navigation
+    const checkoutLink = document.querySelector('a[href="/checkout"]');
+    if (checkoutLink) {
+        checkoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            syncHiddenFormQuantities();
+            const form = document.getElementById('cart');
+            if (form) {
+                form.submit();
+            }
+        });
+    }
 });
 
 window.addEventListener('DOMContentLoaded', event => {

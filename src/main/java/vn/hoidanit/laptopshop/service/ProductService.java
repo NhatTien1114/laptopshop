@@ -93,4 +93,34 @@ public class ProductService {
         return this.cartRepository.findByUser(user);
     }
 
+    public void removeProductFromCart(long cartDetailId, HttpSession session) {
+        Optional<CartDetail> currentDetail = this.cartDetailRepository.findById(cartDetailId);
+        if (currentDetail.isPresent()) {
+            CartDetail cartDetail = currentDetail.get();
+            cartDetailRepository.delete(cartDetail);
+            Cart cart = cartDetail.getCart();
+
+            if (cart.getSum() > 1) {
+                cart.setSum(cart.getSum() - 1);
+                this.cartRepository.save(cart);
+                session.setAttribute("sum", cart.getSum());
+            } else {
+                this.cartRepository.delete(cart);
+                session.setAttribute("sum", 0);
+            }
+
+        }
+    }
+
+    public void handleUpdateCartBeforeCheckou(List<CartDetail> cartDetails) {
+        for (CartDetail cartDetail : cartDetails) {
+            Optional<CartDetail> currentCartDetail = this.cartDetailRepository.findById(cartDetail.getId());
+            if (currentCartDetail.isPresent()) {
+                CartDetail existingCartDetail = currentCartDetail.get();
+                existingCartDetail.setQuantity(cartDetail.getQuantity());
+                this.cartDetailRepository.save(existingCartDetail);
+            }
+        }
+    }
+
 }
