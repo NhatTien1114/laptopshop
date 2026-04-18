@@ -10,9 +10,9 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class OrderDetail {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int quantity;
+    private long quantity;
     private double price;
 
     // orderId
@@ -25,7 +25,7 @@ public class OrderDetail {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public OrderDetail(long id, int quantity, double price) {
+    public OrderDetail(long id, long quantity, double price) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
@@ -38,7 +38,7 @@ public class OrderDetail {
         return id;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
@@ -58,7 +58,7 @@ public class OrderDetail {
         this.id = id;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
@@ -86,6 +86,5 @@ public class OrderDetail {
         sb.append('}');
         return sb.toString();
     }
-
 
 }

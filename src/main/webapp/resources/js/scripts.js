@@ -53,6 +53,36 @@ function syncHiddenFormQuantities() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    // === Product Detail page: sync +/- buttons with hidden quantity input ===
+    var detailInput = document.querySelector('input[data-cart-detail-index]');
+    if (detailInput) {
+        var hiddenQty = document.getElementById('cartDetails0.quantity');
+        var container = detailInput.closest('.input-group');
+
+        container.querySelector('.btn-plus').addEventListener('click', function() {
+            var val = parseInt(detailInput.value) || 1;
+            detailInput.value = val + 1;
+            if (hiddenQty) hiddenQty.value = val + 1;
+        });
+
+        container.querySelector('.btn-minus').addEventListener('click', function() {
+            var val = parseInt(detailInput.value) || 1;
+            if (val > 1) {
+                detailInput.value = val - 1;
+                if (hiddenQty) hiddenQty.value = val - 1;
+            }
+        });
+
+        detailInput.addEventListener('change', function() {
+            var val = parseInt(detailInput.value);
+            if (isNaN(val) || val < 1) val = 1;
+            detailInput.value = val;
+            if (hiddenQty) hiddenQty.value = val;
+        });
+    }
+
+    // === Cart page: +/- buttons ===
     document.querySelectorAll('.btn-plus').forEach(function(btn) {
         btn.addEventListener('click', function() {
             const id = this.getAttribute('data-cart-detail-id');

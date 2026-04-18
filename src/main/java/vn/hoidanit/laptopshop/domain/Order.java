@@ -2,8 +2,6 @@ package vn.hoidanit.laptopshop.domain;
 
 import java.util.List;
 
-import org.springframework.format.annotation.NumberFormat;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "orders")
@@ -22,13 +19,9 @@ public class Order {
     private long id;
     private double totalPrice;
 
-    @Min(value = 1, message = "Receiver name must not be empty")
     private String receiverName;
 
-    @Min(value = 1, message = "Receiver phone must not be empty")
-    @NumberFormat(pattern = "0[0-9]{9}")
     private String receiverPhone;
-    @Min(value = 1, message = "Receiver address must not be empty")
     private String receiverAddress;
 
     private String status;

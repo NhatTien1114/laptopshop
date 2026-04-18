@@ -77,7 +77,7 @@
                                                     </div>
                                                 </th>
                                                 <td>
-                                                    <p class="mb-0 mt-4">{cartDetail.product.name}</p>
+                                                    <p class="mb-0 mt-4">${cartDetail.product.name}</p>
                                                 </td>
                                                 <td>
                                                     <p class="mb-0 mt-4">
@@ -101,32 +101,23 @@
 
 
                             <c:if test="${not empty cartDetails}">
-                                <form:form method="post" action="/place-order" modelAttribute="cart">
+                                <form method="post" action="/place-order">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     <div class="mt-5 row g-4 justify-content-start">
                                         <div class="col-12 col-md-6">
 
                                             <h5 class="display-6 mb-4">Thông Tin <span class="fw-normal">Người Nhận</span></h5>
                                             <div class="mb-3">
-                                                <c:set var="errName">
-                                                    <form:errors path="receiverName" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <c:set var="errAddress">
-                                                    <form:errors path="receiverAddress" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <c:set var="errPhone">
-                                                    <form:errors path="receiverPhone" cssClass="invalid-feedback" />
-                                                </c:set>
-                                                <label for="name" class="form-label">Họ và tên</label>
-                                                <input type="text" class="form-control ${not empty errPrice ? 'is-invalid' : ''}" name="receiverName" placeholder="Nhập họ và tên của bạn" required>${errName}
+                                                <label for="receiverName" class="form-label">Họ và tên</label>
+                                                <input type="text" class="form-control" name="receiverName" placeholder="Nhập họ và tên của bạn" required />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="phone" class="form-label">Số điện thoại</label>
-                                                <input type="text" class="form-control ${not empty errPrice ? 'is-invalid' : ''}" id="receiverPhone" placeholder="Nhập số điện thoại của bạn" required> ${errPhone}
+                                                <label for="receiverPhone" class="form-label">Số điện thoại</label>
+                                                <input type="text" class="form-control" name="receiverPhone" placeholder="Nhập số điện thoại của bạn" required />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="address" class="form-label">Địa chỉ</label>
-                                                <input type="text" class="form-control ${not empty errPrice ? 'is-invalid' : ''}" id="receiverAddress" placeholder="Nhập địa chỉ giao hàng của bạn" required> ${errAddress}
+                                                <label for="receiverAddress" class="form-label">Địa chỉ</label>
+                                                <input type="text" class="form-control" name="receiverAddress" placeholder="Nhập địa chỉ giao hàng của bạn" required />
                                             </div>
                                             <div class="mt-4">
                                                 <i class="fas fa-arrow-left"></i>
@@ -157,11 +148,11 @@
                                                         <fmt:formatNumber value="${totalPrice}" type="currency" currencySymbol="$" /> đ
                                                     </p>
                                                 </div>
-                                                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">XÁC NHẬN THANH TOÁN</button>
+                                                <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="submit">XÁC NHẬN THANH TOÁN</button>
                                             </div>
                                         </div>
                                     </div>
-                                </form:form>
+                                </form>
                             </c:if>
                         </div>
 
