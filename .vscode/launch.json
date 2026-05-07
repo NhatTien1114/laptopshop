@@ -8,7 +8,8 @@
             "mainClass": "vn.hoidanit.laptopshop.LaptopshopApplication",
             "projectName": "laptopshop",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "javaExec": "C:\\Users\\Admin\\.jdk\\jdk-21.0.10\\bin\\java.exe"
         }
     ]
 }

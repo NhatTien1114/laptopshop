@@ -98,14 +98,16 @@ public class HomePageController {
     }
 
     @GetMapping("/products")
-    public String getProductsPage(Model model, @RequestParam("page") Optional<String> pageParam) {
+    public String getProductsPage(Model model, @RequestParam("page") Optional<String> pageParam,
+            @RequestParam("name") Optional<String> nameParam) {
         int page = 1;
         try {
             page = Integer.parseInt(pageParam.get());
         } catch (Exception e) {
         }
+        String name = nameParam.isPresent() ? nameParam.get() : "";
         Pageable pageable = PageRequest.of(page - 1, 6);
-        Page<Product> productsPage = this.productService.fetchProducts(pageable);
+        Page<Product> productsPage = this.productService.fetchProductsWithSpec(pageable, name);
         List<Product> products = productsPage.getContent();
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
