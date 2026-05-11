@@ -94,11 +94,12 @@
 
 		<!-- Spring Data JPA - Specification -->
 		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>6.4.1.Final</version>
-			<scope>provided</scope>
+    		<groupId>org.hibernate.orm</groupId>
+    		<artifactId>hibernate-jpamodelgen</artifactId>
+    		<version>6.4.1.Final</version>
+    		<scope>provided</scope>
 		</dependency>
+
 
 	</dependencies>
 
@@ -107,6 +108,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.hibernate.orm</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>6.4.1.Final</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -45,7 +45,7 @@ public class HomePageController {
 
     @GetMapping("/")
     public String getHomePage(Model model) {
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(0, 60);
         Page<Product> productsPage = this.productService.fetchProducts(pageable);
         List<Product> products = productsPage.getContent();
         model.addAttribute("products", products);
@@ -98,16 +98,36 @@ public class HomePageController {
     }
 
     @GetMapping("/products")
-    public String getProductsPage(Model model, @RequestParam("page") Optional<String> pageParam,
-            @RequestParam("name") Optional<String> nameParam) {
+    public String getProductsPage(Model model,
+            @RequestParam("page") Optional<String> pageParam,
+            @RequestParam("name") Optional<String> nameParam,
+            @RequestParam("min-price") Optional<String> minPriceParam,
+            @RequestParam("max-price") Optional<String> maxPriceParam,
+            @RequestParam("price") Optional<String> priceParam,
+            @RequestParam("factory") Optional<String> factoryParam) {
         int page = 1;
+        Double minPrice = null;
+        Double maxPrice = null;
         try {
             page = Integer.parseInt(pageParam.get());
         } catch (Exception e) {
         }
+        try {
+            minPrice = Double.parseDouble(priceParam.get());
+        } catch (Exception e) {
+        }
+        try {
+            maxPrice = Double.parseDouble(maxPriceParam.get());
+        } catch (Exception e) {
+        }
+
         String name = nameParam.isPresent() ? nameParam.get() : "";
+        String factory = factoryParam.isPresent() ? factoryParam.get() : "";
         Pageable pageable = PageRequest.of(page - 1, 6);
-        Page<Product> productsPage = this.productService.fetchProductsWithSpec(pageable, name);
+        List<String> factories = factory.isEmpty() ? List.of() : List.of(factory.split(","));
+        String price = priceParam.isPresent() ? priceParam.get() : "";
+        List<String> prices = price.isEmpty() ? List.of() : List.of(price.split(""));
+        Page<Product> productsPage = this.productService.fetchProductsWithSpec(pageable, prices);
         List<Product> products = productsPage.getContent();
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
