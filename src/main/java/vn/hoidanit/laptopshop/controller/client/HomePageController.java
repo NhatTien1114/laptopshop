@@ -1,7 +1,6 @@
 package vn.hoidanit.laptopshop.controller.client;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +19,7 @@ import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
 import vn.hoidanit.laptopshop.service.OrderService;
 import vn.hoidanit.laptopshop.service.ProductService;
@@ -45,7 +44,7 @@ public class HomePageController {
 
     @GetMapping("/")
     public String getHomePage(Model model) {
-        Pageable pageable = PageRequest.of(0, 60);
+        Pageable pageable = PageRequest.of(0, 6);
         Page<Product> productsPage = this.productService.fetchProducts(pageable);
         List<Product> products = productsPage.getContent();
         model.addAttribute("products", products);
@@ -98,40 +97,29 @@ public class HomePageController {
     }
 
     @GetMapping("/products")
-    public String getProductsPage(Model model,
-            @RequestParam("page") Optional<String> pageParam,
-            @RequestParam("name") Optional<String> nameParam,
-            @RequestParam("min-price") Optional<String> minPriceParam,
-            @RequestParam("max-price") Optional<String> maxPriceParam,
-            @RequestParam("price") Optional<String> priceParam,
-            @RequestParam("factory") Optional<String> factoryParam) {
-        int page = 1;
-        Double minPrice = null;
-        Double maxPrice = null;
-        try {
-            page = Integer.parseInt(pageParam.get());
-        } catch (Exception e) {
-        }
-        try {
-            minPrice = Double.parseDouble(priceParam.get());
-        } catch (Exception e) {
-        }
-        try {
-            maxPrice = Double.parseDouble(maxPriceParam.get());
-        } catch (Exception e) {
-        }
+    public String getProductsPage(Model model, ProductCriteriaDTO productCriteria) {
+        {
+            int page = 1;
+            // Double minPrice = null;
+            // Double maxPrice = null;
+            try {
+                page = Integer.parseInt(productCriteria.getPage().get());
+            } catch (Exception e) {
+            }
+            Pageable pageable = PageRequest.of(page - 1, 60);
 
-        String name = nameParam.isPresent() ? nameParam.get() : "";
-        String factory = factoryParam.isPresent() ? factoryParam.get() : "";
-        Pageable pageable = PageRequest.of(page - 1, 6);
-        List<String> factories = factory.isEmpty() ? List.of() : List.of(factory.split(","));
-        String price = priceParam.isPresent() ? priceParam.get() : "";
-        List<String> prices = price.isEmpty() ? List.of() : List.of(price.split(""));
-        Page<Product> productsPage = this.productService.fetchProductsWithSpec(pageable, prices);
-        List<Product> products = productsPage.getContent();
-        model.addAttribute("products", products);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", productsPage.getTotalPages());
-        return "client/homepage/products";
+            // String factory = factoryParam.isPresent() ? factoryParam.get() : "";
+            // List<String> factories = factory.isEmpty() ? List.of() :
+            // List.of(factory.split(","));
+            // String price = priceParam.isPresent() ? priceParam.get() : "";
+            // List<String> prices = price.isEmpty() ? List.of() : List.of(price.split(""));
+
+            Page<Product> productsPage = this.productService.fetchProducts(pageable);
+            List<Product> products = productsPage.getContent();
+            model.addAttribute("products", products);
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", productsPage.getTotalPages());
+            return "client/homepage/products";
+        }
     }
 }

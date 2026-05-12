@@ -63,7 +63,7 @@
                                     <div class="col-lg-4">
                                         <div class="row g-4">
                                             <div class="col-lg-12">
-                                                <div class="mb-4">
+                                                <div class="mb-4" id="factoryFilter">
                                                     <h4 class="fw-bold mb-3">Hãng sản xuất</h4>
                                                     <div class="row row-cols-4 g-2">
                                                         <div class="col">
@@ -104,7 +104,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-4">
+                                                <div class="mb-4" id="targetFilter">
                                                     <h4 class="fw-bold mb-3">Mục đích sử dụng</h4>
                                                     <div class="row row-cols-2 g-2">
                                                         <div class="col">
@@ -115,54 +115,54 @@
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="SINH_VIEN_VAN_PHONG" id="purposeOfficeStudent">
+                                                                <input class="form-check-input" type="checkbox" value="SINH-VIEN-VAN-PHONG" id="purposeOfficeStudent">
                                                                 <label class="form-check-label" for="purposeOfficeStudent">Sinh viên - văn phòng</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="THIET_KE_DO_HOA" id="purposeDesign">
+                                                                <input class="form-check-input" type="checkbox" value="THIET-KE-DO-HOA" id="purposeDesign">
                                                                 <label class="form-check-label" for="purposeDesign">Thiết kế đồ họa</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="MONG_NHE" id="purposeThinLight">
+                                                                <input class="form-check-input" type="checkbox" value="MONG-NHE" id="purposeThinLight">
                                                                 <label class="form-check-label" for="purposeThinLight">Mỏng nhẹ</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="DOANH_NHAN" id="purposeBusiness">
+                                                                <input class="form-check-input" type="checkbox" value="DOANH-NHAN" id="purposeBusiness">
                                                                 <label class="form-check-label" for="purposeBusiness">Doanh nhân</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
+                                                <div class="mb-3" id="priceFilter">
                                                     <h4 class="fw-bold mb-3">Mức giá</h4>
                                                     <div class="row row-cols-2 g-2">
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="DUOI_10" id="priceUnder10">
+                                                                <input class="form-check-input" type="checkbox" value="duoi-10-trieu" id="priceUnder10">
                                                                 <label class="form-check-label" for="priceUnder10">Dưới 10 triệu</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="10_15" id="price10to15">
+                                                                <input class="form-check-input" type="checkbox" value="10-15-trieu" id="price10to15">
                                                                 <label class="form-check-label" for="price10to15">Từ 10 - 15 triệu</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="15_20" id="price15to20">
+                                                                <input class="form-check-input" type="checkbox" value="15-20-trieu" id="price15to20">
                                                                 <label class="form-check-label" for="price15to20">Từ 15 - 20 triệu</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-check mb-1">
-                                                                <input class="form-check-input" type="checkbox" value="TREN_20" id="priceOver20">
+                                                                <input class="form-check-input" type="checkbox" value="tren-20-trieu" id="priceOver20">
                                                                 <label class="form-check-label" for="priceOver20">Trên 20 triệu</label>
                                                             </div>
                                                         </div>
@@ -173,26 +173,26 @@
                                                     <div class="row row-cols-2 g-2">
                                                         <div class="col">
                                                             <div class="form-radio mb-1">
-                                                                <input class="form-radio-input" type="radio" id="increse">
-                                                                <label class="form-radio-label" for="increse">Giá tăng dần</label>
+                                                                <input class="form-radio-input" type="radio" name="radio-sort" value="gia-tang-dan" id="sortAsc">
+                                                                <label class="form-radio-label" for="sortAsc">Giá tăng dần</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-radio mb-1">
-                                                                <input class="form-radio-input" type="radio" id="decrese">
-                                                                <label class="form-radio-label" for="decrese">Giá giảm dần</label>
+                                                                <input class="form-radio-input" type="radio" name="radio-sort" value="gia-giam-dan" id="sortDesc">
+                                                                <label class="form-radio-label" for="sortDesc">Giá giảm dần</label>
                                                             </div>
                                                         </div>
                                                         <div class="col">
                                                             <div class="form-radio mb-1">
-                                                                <input class="form-radio-input" type="radio" id="increse">
-                                                                <label class="form-radio-label" for="increse">Không sắp xếp</label>
+                                                                <input class="form-radio-input" type="radio" name="radio-sort" value="" id="sortNone" checked>
+                                                                <label class="form-radio-label" for="sortNone">Không sắp xếp</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex my-4">
-                                                    <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-50">Lọc sản phẩm</a>
+                                                    <button class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-50" id="btnFilter">Lọc sản phẩm</button>
                                                 </div>
                                             </div>
                                         </div>

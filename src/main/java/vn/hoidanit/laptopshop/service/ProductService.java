@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -48,6 +47,10 @@ public class ProductService {
         return productRepository.findAll(pageable);
     }
 
+    public Page<Product> fetchProductsWithSpec(Pageable pageable, String name) {
+        return productRepository.findAll(ProductSpecs.likeName(name), pageable);
+    }
+
     // public Page<Product> fetchProductsWithSpec(Pageable pageable, String name,
     // Double minPrice, Double maxPrice,
     // String factory, List<String> factories) {
@@ -74,42 +77,44 @@ public class ProductService {
     // }
     // }
 
-    public Page<Product> fetchProductsWithSpec(Pageable pageable, List<String> prices) {
-        Specification<Product> combinedSpec = (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
-        int count = 0;
-        for (String p : prices) {
-            double min = 0;
-            double max = 0;
+    // public Page<Product> fetchProductsWithSpec(Pageable pageable, List<String>
+    // prices) {
+    // Specification<Product> combinedSpec = (root, query, criteriaBuilder) ->
+    // criteriaBuilder.disjunction();
+    // int count = 0;
+    // for (String p : prices) {
+    // double min = 0;
+    // double max = 0;
 
-            switch (p) {
-                case "10-toi-15-trieu":
-                    min = 10000000;
-                    max = 15000000;
-                    count++;
-                    break;
-                case "15-toi-20-trieu":
-                    min = 15000000;
-                    max = 20000000;
-                    count++;
-                    break;
-                case "tren-20-trieu":
-                    min = 20000000;
-                    max = Double.MAX_VALUE;
-                    break;
-            }
+    // switch (p) {
+    // case "10-toi-15-trieu":
+    // min = 10000000;
+    // max = 15000000;
+    // count++;
+    // break;
+    // case "15-toi-20-trieu":
+    // min = 15000000;
+    // max = 20000000;
+    // count++;
+    // break;
+    // case "tren-20-trieu":
+    // min = 20000000;
+    // max = Double.MAX_VALUE;
+    // break;
+    // }
 
-            if (min != 0 && max != 0) {
-                Specification<Product> priceSpec = ProductSpecs.priceBetween(min, max);
-                combinedSpec = combinedSpec.or(priceSpec);
-            }
-        }
+    // if (min != 0 && max != 0) {
+    // Specification<Product> priceSpec = ProductSpecs.priceBetween(min, max);
+    // combinedSpec = combinedSpec.or(priceSpec);
+    // }
+    // }
 
-        if (count == 0) {
-            return productRepository.findAll(pageable);
-        } else {
-            return productRepository.findAll(combinedSpec, pageable);
-        }
-    }
+    // if (count == 0) {
+    // return productRepository.findAll(pageable);
+    // } else {
+    // return productRepository.findAll(combinedSpec, pageable);
+    // }
+    // }
 
     public Optional<Product> fetchProductsById(long id) {
         return this.productRepository.findById(id);

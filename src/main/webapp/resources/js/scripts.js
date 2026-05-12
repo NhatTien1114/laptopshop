@@ -124,6 +124,108 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// handle filter products
+$(document).ready(function() {
+
+    // === Pre-populate checkboxes and sort radio from URL params on page load ===
+    var params = new URLSearchParams(window.location.search);
+
+    var factoryVal = params.get('factory');
+    if (factoryVal) {
+        factoryVal.split(',').forEach(function(v) {
+            $('#factoryFilter .form-check-input[value="' + v + '"]').prop('checked', true);
+        });
+    }
+
+    var targetVal = params.get('target');
+    if (targetVal) {
+        targetVal.split(',').forEach(function(v) {
+            $('#targetFilter .form-check-input[value="' + v + '"]').prop('checked', true);
+        });
+    }
+
+    var priceVal = params.get('price');
+    if (priceVal) {
+        priceVal.split(',').forEach(function(v) {
+            $('#priceFilter .form-check-input[value="' + v + '"]').prop('checked', true);
+        });
+    }
+
+    var sortVal = params.get('sort');
+    if (sortVal) {
+        $('input[name="radio-sort"][value="' + sortVal + '"]').prop('checked', true);
+    }
+
+    // === Filter button: collect checked values and navigate to filtered URL ===
+    $('#btnFilter').click(function() {
+        var factoryArr = [];
+        var targetArr = [];
+        var priceArr = [];
+
+        $('#factoryFilter .form-check-input:checked').each(function() {
+            factoryArr.push($(this).val());
+        });
+
+        $('#targetFilter .form-check-input:checked').each(function() {
+            targetArr.push($(this).val());
+        });
+
+        $('#priceFilter .form-check-input:checked').each(function() {
+            priceArr.push($(this).val());
+        });
+
+        var sortValue = $('input[name="radio-sort"]:checked').val();
+
+        var currentUrl = new URL(window.location.href);
+        var searchParams = currentUrl.searchParams;
+
+        searchParams.set('page', '1');
+
+        if (sortValue) {
+            searchParams.set('sort', sortValue);
+        } else {
+            searchParams.delete('sort');
+        }
+
+        if (factoryArr.length > 0) {
+            searchParams.set('factory', factoryArr.join(','));
+        } else {
+            searchParams.delete('factory');
+        }
+
+        if (targetArr.length > 0) {
+            searchParams.set('target', targetArr.join(','));
+        } else {
+            searchParams.delete('target');
+        }
+
+        if (priceArr.length > 0) {
+            searchParams.set('price', priceArr.join(','));
+        } else {
+            searchParams.delete('price');
+        }
+
+        window.location.href = currentUrl.toString();
+    });
+
+    // === Pagination: preserve filter params when navigating pages ===
+    $('.pagination a').on('click', function(e) {
+        var href = $(this).attr('href');
+        if (!href || href === 'javascript:void(0)') return;
+        e.preventDefault();
+        var linkUrl = new URL(href, window.location.origin);
+        var currentParams = new URLSearchParams(window.location.search);
+        ['factory', 'target', 'price', 'sort'].forEach(function(param) {
+            var val = currentParams.get(param);
+            if (val) {
+                linkUrl.searchParams.set(param, val);
+            }
+        });
+        window.location.href = linkUrl.toString();
+    });
+
+});
+
 window.addEventListener('DOMContentLoaded', event => {
 
     // Toggle the side navigation
