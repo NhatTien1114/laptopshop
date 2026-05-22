@@ -54,6 +54,15 @@ public class ProductSpecs {
         };
     }
 
+    public static Specification<Product> targetIn(List<String> targets) {
+        return (root, query, criteriaBuilder) -> {
+            if (targets != null && !targets.isEmpty()) {
+                return criteriaBuilder.in(root.get(Product_.TARGET)).value(targets);
+            }
+            return criteriaBuilder.conjunction();
+        };
+    }
+
     public static Specification<Product> priceBetween(double minPrice, double maxPrice) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.and(
                 criteriaBuilder.ge(root.get(Product_.PRICE), minPrice),

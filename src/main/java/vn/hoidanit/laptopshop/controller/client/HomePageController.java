@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Product;
+import vn.hoidanit.laptopshop.domain.Product_;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
@@ -106,15 +108,24 @@ public class HomePageController {
                 page = Integer.parseInt(productCriteria.getPage().get());
             } catch (Exception e) {
             }
-            Pageable pageable = PageRequest.of(page - 1, 60);
-
+            Pageable pageable = PageRequest.of(page - 1, 5);
+            if (productCriteria.getSort() != null && productCriteria.getSort().isPresent()) {
+                String sort = productCriteria.getSort().get();
+                if (sort.equals("gia-giam-dan")) {
+                    pageable = PageRequest.of(page - 1, 5, Sort.by(Product_.PRICE).descending());
+                } else if (sort.equals("gia-tang-dan")) {
+                    pageable = PageRequest.of(page - 1, 5, Sort.by(Product_.PRICE).ascending());
+                } else {
+                    pageable = PageRequest.of(page - 1, 5);
+                }
+            }
             // String factory = factoryParam.isPresent() ? factoryParam.get() : "";
             // List<String> factories = factory.isEmpty() ? List.of() :
             // List.of(factory.split(","));
             // String price = priceParam.isPresent() ? priceParam.get() : "";
             // List<String> prices = price.isEmpty() ? List.of() : List.of(price.split(""));
 
-            Page<Product> productsPage = this.productService.fetchProducts(pageable);
+            Page<Product> productsPage = this.productService.fetchProductsWithSpec(pageable, productCriteria);
             List<Product> products = productsPage.getContent();
             model.addAttribute("products", products);
             model.addAttribute("currentPage", page);

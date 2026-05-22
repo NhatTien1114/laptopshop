@@ -181,6 +181,9 @@ $(document).ready(function() {
 
         searchParams.set('page', '1');
 
+        searchParams.delete('factory');
+        searchParams.delete('target');
+        searchParams.delete('price');
         if (sortValue) {
             searchParams.set('sort', sortValue);
         } else {
