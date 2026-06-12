@@ -79,7 +79,7 @@ src/
 1. **Clone dự án**:
 
     ```bash
-    git clone https://github.com/tranvanhailam/laptopshop-java-spring-mvc.git
+    git clone https://github.com/NhatTien1114/laptopshop
     ```
 
 2. **Cấu hình cơ sở dữ liệu**:
