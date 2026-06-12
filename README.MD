@@ -122,4 +122,69 @@ src/
 ## Tác giả
 
 -   **Tống Nguyễn Nhật Tiến**
--   Thời gian thực hiện: 20/2/2026 - ...
+-   Thời gian thực hiện: 20/2/2026 - 12/05/2026│   └── config/           # Chứa các cấu hình (Security, MVC, ...)
+│   ├── resources/
+│   │   ├── static/           # Chứa tài nguyên tĩnh (CSS, JS, images)
+│   │   ├── WEB-INF/view/     # Chứa các file JSP
+│   │   └── application.properties # Cấu hình ứng dụng
+├── test/                     # Chứa code kiểm thử
+└── pom.xml                   # File cấu hình Maven
+```
+
+## Yêu cầu cài đặt
+
+1. **Java**: JDK 17 trở lên.
+2. **Maven**: Để quản lý thư viện và xây dựng dự án.
+3. **MySQL**: Cơ sở dữ liệu để lưu trữ dữ liệu.
+4. **IDE**: IntelliJ IDEA, Spring Tool Suite, hoặc VSCode (khuyến nghị sử dụng Spring Tool Suite để tránh lỗi build).
+5. **Trình duyệt**: Chrome, Firefox, hoặc bất kỳ trình duyệt hiện đại nào.
+
+## Hướng dẫn cài đặt và chạy dự án
+
+1. **Clone dự án**:
+
+    ```bash
+    git clone https://github.com/NhatTien1114/laptopshop
+    ```
+
+2. **Cấu hình cơ sở dữ liệu**:
+
+    - Tạo database trong MySQL, ví dụ: `db_example`.
+    - Cập nhật thông tin kết nối trong file `application.properties`:
+        ```properties
+        spring.datasource.url=jdbc:mysql://localhost:3306/db_example
+        spring.datasource.username=<your-username>
+        spring.datasource.password=<your-password>
+        spring.jpa.hibernate.ddl-auto=update
+        ```
+
+3. **Cài đặt thư viện**:
+
+    ```bash
+    mvn clean install
+    ```
+
+4. **Chạy ứng dụng**:
+
+    ```bash
+    mvn spring-boot:run
+    ```
+
+5. **Truy cập ứng dụng**:
+    - Mở trình duyệt và truy cập: `http://localhost:8080`.
+    - Trang đăng nhập: `http://localhost:8080/login`.
+    - Trang quản trị (yêu cầu ROLE_ADMIN): `http://localhost:8080/admin`.
+
+## Tài liệu tham khảo
+
+-   [Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
+-   [Spring Security Documentation](https://docs.spring.io/spring-security/reference/index.html)
+-   [Spring Data JPA Documentation](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+-   [Thymeleaf vs JSP](https://www.thymeleaf.org/doc/articles/thvsjsp.html)
+-   [Bootstrap Documentation](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+-   [JPA Specifications](https://docs.spring.io/spring-data/jpa/reference/jpa/specifications.html)
+
+## Tác giả
+
+-   **Tống Nguyễn Nhật Tiến**
+-   Thời gian thực hiện: 20/2/2026 - 12/05/2026
