@@ -128,7 +128,7 @@ public class ProductService {
             if (cart == null) {
                 Cart otherCart = new Cart();
                 otherCart.setUser(user);
-                otherCart.setSum(1);
+                otherCart.setSum(0);
 
                 cart = this.cartRepository.save(otherCart);
             }
@@ -151,7 +151,6 @@ public class ProductService {
                     cart.setSum(sum);
                     this.cartRepository.save(cart);
                     session.setAttribute("sum", sum);
-
                 } else {
                     oldCart.setQuantity(oldCart.getQuantity() + quantity);
                     this.cartDetailRepository.save(oldCart);

@@ -74,8 +74,10 @@ public class OrderController {
     // Delete
     @GetMapping("/admin/order/delete/{id}")
     public String getDeleteOrderPage(Model model, @PathVariable long id) {
+        Order orderDelete = new Order();
+        orderDelete.setId(id);
+        model.addAttribute("orderDelete", orderDelete);
         model.addAttribute("id", id);
-        model.addAttribute("newOrder", new Order());
         return "admin/order/delete_order";
     }
 

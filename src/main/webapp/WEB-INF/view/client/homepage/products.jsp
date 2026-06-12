@@ -202,7 +202,7 @@
 
                                             <c:if test="${products != null}">
                                                 <c:forEach var="product" items="${products}">
-                                                    <div class="col-md-6 col-lg-6 col-xl-4">
+                                                    <div class="col-md-6 col-lg-4">
                                                         <div class="rounded position-relative fruite-item">
                                                             <div class="fruite-img">
                                                                 <img src="/image/product/${product.image}" class="img-fluid w-100 rounded-top" alt="">
@@ -211,7 +211,7 @@
                                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                                 <h4>${product.name}</h4>
                                                                 <p>${product.shortDesc}</p>
-                                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                                <div class="d-flex justify-content-between flex-lg-wrap align-items-end">
                                                                     <p class="text-dark fs-5 fw-bold mb-0">
                                                                         <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="₫" groupingUsed="true" />
                                                                     </p>

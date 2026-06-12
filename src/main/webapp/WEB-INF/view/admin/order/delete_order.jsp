@@ -36,10 +36,10 @@
                                             <div class="alert alert-danger" role="alert">
                                                 Xác nhận xóa order có id: ${id}
                                             </div>
-                                            <form:form method="post" action="/admin/order/delete" modelAttribute="productDelete">
+                                            <form:form method="post" action="/admin/order/delete" modelAttribute="orderDelete">
                                                 <div class="mb-3" style="display: none">
                                                     <label class="form-label">ID:</label>
-                                                    <form:input value="${id}" type="text" class="form-control" path="id" />
+                                                    <form:input type="text" class="form-control" path="id" />
                                                 </div>
                                                 <button class="btn btn-danger">Delete</button>
                                             </form:form>

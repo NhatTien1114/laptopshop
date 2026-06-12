@@ -45,6 +45,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <c:if test="${ empty users}">
+                                                    <tr>
+                                                        <td colspan="6" style="text-align: center;">
+                                                            Không có user
+                                                        </td>
+                                                    </tr>
+                                                </c:if>
+
                                                 <c:forEach var="user" items="${users}">
                                                     <tr>
                                                         <th>${user.id}</th>
@@ -60,25 +68,28 @@
                                                 </c:forEach>
                                             </tbody>
                                         </table>
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item">
-                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}" href="/admin/user?page=${currentPage - 1}" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <c:forEach varStatus="loop" begin="0" end="${totalPage - 1}">
+                                        <c:if test="${ not empty orders}">
+
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center">
                                                     <li class="page-item">
-                                                        <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}" href="/admin/user?page=${loop.index + 1}">${loop.index + 1}</a>
+                                                        <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}" href="/admin/user?page=${currentPage - 1}" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
                                                     </li>
-                                                </c:forEach>
-                                                <li class="page-item">
-                                                    <a class="${totalPage eq currentPage ? 'disabled page-link' : 'page-link'}" href="/admin/user?page=${currentPage + 1}" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                                    <c:forEach varStatus="loop" begin="0" end="${totalPage - 1}">
+                                                        <li class="page-item">
+                                                            <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}" href="/admin/user?page=${loop.index + 1}">${loop.index + 1}</a>
+                                                        </li>
+                                                    </c:forEach>
+                                                    <li class="page-item">
+                                                        <a class="${totalPage eq currentPage ? 'disabled page-link' : 'page-link'}" href="/admin/user?page=${currentPage + 1}" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>

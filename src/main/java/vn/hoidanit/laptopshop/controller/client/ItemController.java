@@ -38,7 +38,10 @@ public class ItemController {
 
     @PostMapping("/add-product-to-cart/{id}")
     public String addProductToCart(@PathVariable long id, HttpServletRequest request) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("email") == null) {
+            return "redirect:/login";
+        }
         long productId = id;
         String email = (String) session.getAttribute("email");
 
@@ -48,8 +51,11 @@ public class ItemController {
 
     @GetMapping("/cart")
     public String getCartPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("id") == null) {
+            return "redirect:/login";
+        }
         User user = new User();
-        HttpSession session = request.getSession();
         long id = (long) session.getAttribute("id");
         user.setId(id);
         Cart cart = this.productService.fetchByUser(user);
@@ -69,6 +75,9 @@ public class ItemController {
     @PostMapping("/delete-cart-product/{id}")
     public String handleDeleteCartProduct(@PathVariable long id, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+        if (session == null) {
+            return "redirect:/login";
+        }
         long cartDetail = id;
         this.productService.removeProductFromCart(cartDetail, session);
         return "redirect:/cart";
@@ -83,8 +92,11 @@ public class ItemController {
 
     @GetMapping("/checkout")
     public String getCheckoutPage(Model model, HttpServletRequest request) {
-        User user = new User();
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("id") == null) {
+            return "redirect:/login";
+        }
+        User user = new User();
         long id = (long) session.getAttribute("id");
         user.setId(id);
         Cart cart = this.productService.fetchByUser(user);
@@ -105,8 +117,11 @@ public class ItemController {
             @RequestParam("receiverName") String receiverName,
             @RequestParam("receiverPhone") String receiverPhone,
             @RequestParam("receiverAddress") String receiverAddress) {
-        User user = new User();
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("id") == null) {
+            return "redirect:/login";
+        }
+        User user = new User();
         long id = (long) session.getAttribute("id");
         user.setId(id);
 
@@ -123,6 +138,9 @@ public class ItemController {
     public String handleAddProductFromViewDetai(@RequestParam("id") long id, @RequestParam("quantity") long quantity,
             HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("email") == null) {
+            return "redirect:/login";
+        }
         String email = (String) session.getAttribute("email");
         this.productService.handleAddProductToCart(email, id, session, quantity);
 
